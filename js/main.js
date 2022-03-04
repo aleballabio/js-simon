@@ -1,34 +1,58 @@
-/*  
 
-1:  Generare 5 numeri causali 
-- usare il Math.random e math floor come funzione
-- Mettere i numeri dentro un arrayRandom con parseInt in un cicloFOR
-- Display su Html con H1 dei numeri random
+const stamp = document.querySelector(".stamp");
+const arrayRandomNumber = [];
+
+//Random Number
+while (arrayRandomNumber.length < 5) {
+    const Number = randomNumber(1, 100);
+
+    if (arrayRandomNumber.includes(Number)) { }
+
+    else {
+        arrayRandomNumber.push(Number);
+        stamp.innerHTML += Number + " ";
+    }
+}
 
 
-2: Numeri visibili per 30 secondi e allo scadere scompaiono.
+//Simon  Game
+setTimeout(SimonSaysGame, SecondsConverter(30));
 
-- Usare la funzione nuova che scompaiono dopo una volta ( non a inteverallo).
+function SimonSaysGame() {
 
-- Timer 30000ms o * 1000 ai secondi come conversione
+    stamp.innerHTML = "";
+    const NumeriIndovinati = [];
+    let score = 0;
 
-- Print su Html con H1 al centro  dello schermo ( grandi) e "" su H1 dopo i 30 secondi.
+    setTimeout(IndovinaUtente, SecondsConverter(1));
 
-3: Allo  scadere del tempo ( dentro la funzione) ,compaiono i prompt con i numeri da
-    inserire in ordine 5 prompt.
+    function IndovinaUtente() {
 
-    - ciclo for
-    - prompt con parseInt in Array
-    
-    - condizione che se il numero è incluso nell' ArrayRandom:
-    aumenta il contatore
-        e lo pusha in un array di numeri indovinati.
+        for (let times = 0; times < 5; times++) {
+            const NumeriUtente = parseInt(prompt("Indovina il" + " " + (times + 1) + " " + "numero"));
 
-4- Mostra i numeri indovinati e il punteggio su H1
+            if (arrayRandomNumber.includes(NumeriUtente)) {
+                NumeriIndovinati.push(NumeriUtente);
+                score++;
+                stamp.innerHTML = `Punteggio: ${score} <br>
+            Numeri Indovinati: ${NumeriIndovinati}`
+            }
+        }
+    }
 
- while con lunghezza ArrayRandom < contatore
-- stampa il contatore con iinerHtml( punteggio)
-- br con append
-- stampa i numeri corretti dell'array con innerhtml 
-( se non funziona con lo stampo dei numeri con Array ca)
-*/
+}
+
+
+
+//Random  Number Generator
+
+function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Seconds 
+
+function SecondsConverter(seconds) {
+    let secondi = seconds * 1000
+    return secondi;
+}
